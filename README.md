@@ -1,7 +1,5 @@
-#[Complete user registration system using PHP and MySQL database | CodeWithAwa](https://codewithawa.com/posts/complete-user-registration-system-using-php-and-mysql-database) | [YouTube video](https://www.youtube.com/watch?v=C--mu07uhQw)
+# [Complete user registration system using PHP and MySQL database | CodeWithAwa](https://codewithawa.com/posts/complete-user-registration-system-using-php-and-mysql-database) | [YouTube video](https://www.youtube.com/watch?v=C--mu07uhQw)
 In this tutorial, I walk you through the complete process of creating a user registration system where users can create an account by providing username, email and password, login and logout using PHP and MySQL. I will also show you how you can make some pages accessible only to logged in users. Any other user not logged in will not be able to access the page.
-
-(adsbygoogle = window.adsbygoogle || \[\]).push({});
 
 The first thing we'll need to do is set up our database. 
 
@@ -14,16 +12,18 @@ Create a database called **registration**. In the **registration** database, ad
 
 You can create this using a MySQL client like PHPMyAdmin.
 
-![](https://codewithawa.com/assets/post_images/Screenshot from 2017-07-09 16-32-51.png.2017-07-09.1499614401.png)
+![](https://codewithawa.com/assets/post_images/Screenshot%20from%202017-07-09%2016-32-51.png.2017-07-09.1499614401.png)
 
 Or you can create it on the MySQL prompt using the following SQL script:
 
+```mysql
     CREATE TABLE `users` (
       `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       `username` varchar(100) NOT NULL,
       `email` varchar(100) NOT NULL,
       `password` varchar(100) NOT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+```
 
 And that's it with the database. 
 
@@ -31,7 +31,7 @@ Now create a folder called **registration** in a directory accessible to our 
 
 Inside the folder **registration, **create the following files: 
 
-![](https://codewithawa.com/assets/post_images/Screenshot from 2017-07-09 16-44-54.png.2017-07-09.1499615116.png) 
+![](https://codewithawa.com/assets/post_images/Screenshot%20from%202017-07-09%2016-44-54.png.2017-07-09.1499615116.png) 
 
 Open these files up in a text editor of your choice. Mine is Sublime Text 3.
 
@@ -39,6 +39,7 @@ Open these files up in a text editor of your choice. Mine is Sublime Text 3.
 
 Open the register.php file and paste the following code in it:
 
+```php
 **regiser.php:**
 
     <?php include('server.php') ?>
@@ -80,10 +81,9 @@ Open the register.php file and paste the following code in it:
       </form>
     </body>
     </html>
+```
 
 Nothing complicated so far right?
-
-(adsbygoogle = window.adsbygoogle || \[\]).push({});
 
 A few things to note here:
 
@@ -93,6 +93,7 @@ Notice also that we are including the errors.php file to display form errors. We
 
 As you can see in the head section, we are linking to a style.css file. Open up the style.css file and paste the following CSS in it:
 
+```css
     * {
       margin: 0px;
       padding: 0px;
@@ -161,16 +162,15 @@ As you can see in the head section, we are linking to a style.css file. Open up
       border: 1px solid #3c763d;
       margin-bottom: 20px;
     }
-    
+```
 
 Now the form looks beautiful.
-
-(adsbygoogle = window.adsbygoogle || \[\]).push({});
 
 Let's now write the code that will receive information submitted from the form and store (register) the information in the database. As promised earlier, we do this in the server.php file.
 
 Open server.php and paste this code in it:
 
+```php
 **server.php**
 
     <?php
@@ -231,7 +231,7 @@ Open server.php and paste this code in it:
     }
     
     // ... 
-    
+```
 
 Sessions are used to track logged in users and so we include a session_start() at the top of the file.
 
@@ -245,6 +245,7 @@ If no errors were encountered, the user is registered in the **users** table i
 
 But error messages are not displaying now because our errors.php file is still empty. To display the errors, paste this code in the errors.php file.
 
+```php
     <?php  if (count($errors) 0) : ?>
       <div class="error">
       	<?php foreach ($errors as $error) : ?>
@@ -252,18 +253,17 @@ But error messages are not displaying now because our errors.php file is still 
       	<?php endforeach ?>
       </div>
     <?php  endif ?>
-    
+```
 
 When a user is registered in the database, they are immediately logged in and redirected to the index.php page.
 
 And that's it for registration. Let's look at user login.
 
-(adsbygoogle = window.adsbygoogle || \[\]).push({});
-
 ### Login user
 
 Logging a user in is an even easier thing to do. Just open the login page and put this code inside it:
 
+```php
     <?php include('server.php') ?>
     <!DOCTYPE html>
     <html>
@@ -295,11 +295,13 @@ Logging a user in is an even easier thing to do. Just open the login page and pu
       </form>
     </body>
     </html>
+```
 
 Everything on this page is quite similar to the register.php page.
 
 Now the code that logs the user in is to be written in the same server.php file. So open the server.php file and add this code at the end of the file:
 
+```php
     // ... 
     
     // LOGIN USER
@@ -329,13 +331,13 @@ Now the code that logs the user in is to be written in the same server.php file.
     }
     
     ?>
+```
 
 Again all this does is check if the user has filled the form correctly, verifies that their credentials match a record from the database and logs them in if it does. After logging in, the user is redirected them to the index.php file with a success message.
 
-(adsbygoogle = window.adsbygoogle || \[\]).push({});
-
 Now let's see what happens in the index.php file. Open it up and paste the following code in it:
 
+```php
     <?php 
       session_start(); 
     
@@ -382,6 +384,7 @@ Now let's see what happens in the index.php file. Open it up and paste the follo
     		
     </body>
     </html>
+```
 
 The first if statement checks if the user is already logged in. If they are not logged in, they will be redirected to the login page. Hence this page is accessible to only logged in users. If you'd like to make any page accessible only to logged in users, all you have to do is place this if statement at the top of the file.
 
